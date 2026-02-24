@@ -8,9 +8,8 @@ import Image from "next/image";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const pathname = usePathname(); // get the current path
+  const pathname = usePathname();
 
-  // helper to check if a link is active
   const isActive = (path: string) => pathname === path;
 
   return (
@@ -86,10 +85,6 @@ export default function Header() {
         </div>
       </nav>
 
-      {/* FIX: Removed the conditional {mobileMenuOpen && ...} wrapper.
-         Instead, we toggle 'hidden' and 'block' classes.
-         This ensures the Zeffy button exists in the DOM on page load.
-      */}
       <div
         className={`lg:hidden px-4 py-4 bg-[#002c19] ${
           mobileMenuOpen ? "block" : "hidden"

@@ -21,7 +21,7 @@ const footerColumns = [
     links: [
       {
         label: "Donate",
-        href: "#", // keep it as placeholder
+        href: "#",
         zeffyFormLink:
           "https://www.zeffy.com/embed/donation-form/invest-in-the-future-3?modal=true",
       },

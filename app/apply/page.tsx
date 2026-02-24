@@ -285,7 +285,6 @@ const Page = () => {
               </form>
             </div>
           ) : (
-            /* 3. CLOSED STATE: "Opening Soon" Box */
             <div className="bg-white rounded-lg p-10 md:p-16 border border-gray-100 shadow-sm">
               <h3 className="text-2xl font-semibold text-black mb-4">
                 Opening Soon

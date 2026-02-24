@@ -39,10 +39,10 @@ export default function CTASectionContact() {
   }, []);
 
   return (
-    /* Adjusted outer padding:
+    /* Outer padding:
        - Mobile: px-6
        - Tablet: px-16
-       - Desktop: px-[200px] (to align with the ProgramOverview request)
+       - Desktop: px-[200px]
     */
     <section className="py-20 px-6 md:px-16 xl:px-[200px] bg-[#002c19]">
       <div className="w-full mx-auto">

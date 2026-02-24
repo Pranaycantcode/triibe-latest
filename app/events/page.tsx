@@ -16,7 +16,6 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-// 1. Array with exact data from Figma
 const FEBRUARY_EVENTS = [
   {
     title: "Billion Dollar Impact: Next Gen Changemakers",
@@ -445,7 +444,6 @@ const page = () => {
                 {currentEvent.title}
               </h1>
 
-              {/* Exact Metadata Grid from Figma */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 mb-8 text-[#495565]">
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
@@ -527,9 +525,8 @@ const page = () => {
           </div>
 
           {/* Toggle Indicators (Circular Icons) */}
-          {/* Navigation */}
-          <div className="flex items-center justify-between mt-12">
-            {/* Left Arrow */}
+          {/* <div className="flex items-center justify-between mt-12">
+
             <button
               onClick={goToPrevious}
               className="w-12 h-12 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
@@ -538,7 +535,7 @@ const page = () => {
               <ChevronLeft className="w-6 h-6" />
             </button>
 
-            {/* Dots Centered */}
+
             <div className="flex gap-2">
               {FEBRUARY_EVENTS.map((_, index) => (
                 <button
@@ -552,7 +549,7 @@ const page = () => {
               ))}
             </div>
 
-            {/* Right Arrow */}
+
             <button
               onClick={goToNext}
               className="w-12 h-12 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
@@ -560,7 +557,7 @@ const page = () => {
             >
               <ChevronRight className="w-6 h-6" />
             </button>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -739,7 +736,7 @@ const page = () => {
 
             {SPEAKER_PANELS.map((panel, idx) => (
               <React.Fragment key={idx}>
-                {/* Logic: Insert the Billion Dollar Impact activation before the final panel */}
+                {/*  Billion Dollar Impact activation before the final panel */}
                 {idx === SPEAKER_PANELS.length - 2 && (
                   <div className="mb-20">
                     <div className="mb-10 border-b-2 border-blue-100 pb-4">

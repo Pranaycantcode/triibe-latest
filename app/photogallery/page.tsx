@@ -6,14 +6,6 @@ import Footer from "@/components/footer";
 import Image from "next/image";
 import CTASection from "@/components/cta";
 
-/**
- * 1. Modular Data Structure
- * We use a 12-column grid.
- * - md:col-span-4 = 3 images per row (1/3 of 12)
- * - md:col-span-3 = 4 images per row (1/4 of 12)
- * - md:col-span-6 = 2 images per row (1/2 of 12)
- * - Custom: md:col-span-3 (1fr) + md:col-span-6 (2fr) + md:col-span-3 (1fr) = 1 row
- */
 const GALLERY_SECTIONS = [
   {
     title: "World Economic Forum 2026",
@@ -180,7 +172,6 @@ const PhotoGallery = () => {
                   section.images.map((image, imgIdx) => (
                     <div
                       key={imgIdx}
-                      /* Template literal injects the specific span from the array */
                       className={`relative h-64 md:h-80 rounded-xl overflow-hidden bg-gray-50 ${image.gridClass}`}
                     >
                       <Image

@@ -75,7 +75,7 @@
 }
 
 @theme inline {
-  /* optional: --font-sans, --font-serif, --font-mono if they are applied in the layout.tsx */
+  /* optional: --font-sans, --font-serif, --font-mono  */
   --font-sans: "DM Sans", "Helvetica", system-ui, sans-serif;
   --font-mono: "Geist Mono", "Geist Mono Fallback";
   --color-background: var(--background);
@@ -137,14 +137,6 @@ body {
   width: 100%;
   position: relative;
 }
-
-/* Prevent body scroll when Zeffy modal is open */
-/* body:has([id*="zeffy-modal"]),
-body:has([class*="zeffy-modal"]) {
-  overflow: hidden !important;
-  position: fixed !important;
-  width: 100% !important;
-} */
 
 @keyframes rotate-gradient {
   from {

@@ -49,7 +49,7 @@ const workshops = [
     ],
     duration: "",
     type: "",
-    youtubeId: "Ku365Mu1onw", // Replace with actual YouTube ID
+    youtubeId: "Ku365Mu1onw", // Actual YouTube ID
     signupLink: "#",
     watchLink: "https://www.youtube.com/watch?v=Ku365Mu1onw",
   },
@@ -73,7 +73,7 @@ const workshops = [
     ],
     duration: "60 minutes",
     type: "Triibe Talk",
-    youtubeId: "9LU6ll0MY6U", // Replace with actual YouTube ID
+    youtubeId: "9LU6ll0MY6U", // Actual YouTube ID
     signupLink: "https://luma.com/4akmpnxv",
     watchLink: "https://www.youtube.com/watch?v=9LU6ll0MY6U",
   },
@@ -91,7 +91,7 @@ const socialLinks = [
   },
   {
     name: "YouTube",
-    url: "https://www.youtube.com/@TRIIBEtalk",
+    url: "https://www.youtube.com/@TRIIBEorg",
     svg: (
       <svg className="w-10 h-10" fill="currentColor" viewBox="0 0 24 24">
         <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
@@ -270,7 +270,7 @@ const MediaPage = () => {
             )}
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-              {/* Video Embed: Added dynamic classes to center if title is missing (first two videos) */}
+              {/* Video Embed */}
               <div
                 className={`w-full ${!workshop.title ? "lg:col-span-2 max-w-[500px] mx-auto" : ""}`}
               >
@@ -285,7 +285,7 @@ const MediaPage = () => {
                 </div>
               </div>
 
-              {/* Right Column: Only show if title exists (removes entire side panel for first two) */}
+              {/* Right Column */}
               {workshop.title && (
                 <div className="flex flex-col justify-between md:min-h-[350px]">
                   {/* Top Content */}
@@ -337,7 +337,6 @@ const MediaPage = () => {
                       </a>
                     )} */}
 
-                    {/* This button only shows for the 3rd video because of the workshop.title check above */}
                     <a
                       href={workshop.watchLink}
                       target="_blank"
@@ -676,7 +675,7 @@ const MediaPage = () => {
                   />
                 </div>
 
-                {/* Content Container: flex-1 and justify-between push the button to the bottom */}
+                {/* Content Container */}
                 <div className="p-6 flex flex-col justify-between flex-1">
                   <div>
                     <h3 className="font-bold text-black text-base mb-4">
