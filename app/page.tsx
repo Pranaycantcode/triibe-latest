@@ -26,7 +26,7 @@ export default function Home() {
       <KeyStatistics />
       <Changemakers />
       <PostGraduationOutcomes />
-      <OfficeMap />
+      {/* <OfficeMap /> */}
       {/* <SponsorsAndPartners /> */}
       {/* <ImpactMetrics /> */}
       <CTASection />
