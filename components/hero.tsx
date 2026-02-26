@@ -40,7 +40,7 @@ export default function Hero() {
           </div>
 
           {/* CTA Buttons */}
-          <div className="  flex flex-col md:flex-row items-center justify-center gap-12   ">
+          <div className="  flex flex-col md:flex-row items-center justify-center  gap-6 md:gap-12   ">
             <a
               href="/program"
               className="px-6 py-3 font-bold bg-white text-black hover:bg-gray-100 font-['DM_Sans',Helvetica] font-normal text-sm rounded inline-flex items-center justify-center transition-colors"
