@@ -21,9 +21,9 @@ export default function Hero() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 flex flex-col items-center gap-6 px-6 py-16 max-w-225 mx-auto">
+        <div className="relative z-10 flex flex-col items-center  px-6   max-w-225 mx-auto ">
           {/* Heading */}
-          <div className="flex flex-col items-center mt-32">
+          <div className="flex flex-col items-center mt-24 pb-3 ">
             <h1 className="font-['DM_Sans',Helvetica] font-bold text-white text-4xl md:text-4xl lg:text-[64px] text-center tracking-tight leading-tight max-w-200">
               Funding Next-Gen
               <br />
@@ -32,7 +32,7 @@ export default function Hero() {
           </div>
 
           {/* Description */}
-          <div className="flex flex-col items-center mt-2">
+          <div className="flex flex-col items-center pb-6">
             <p className="font-['DM_Sans',Helvetica]font-normal text-white/90 text-base md:text-lg text-center tracking-[0] leading-relaxed max-w-125 ">
               Funding, mentorship, and community for college students taking
               root today to advance tomorrow
@@ -55,7 +55,7 @@ export default function Hero() {
               Apply to Fellowship
             </a>
           </div>
-          <div className="mt-16">
+          <div className="mt-20">
             <Image
               src="/images/home/TRIIBEHeroWhite.svg"
               alt="TRIIBE"
