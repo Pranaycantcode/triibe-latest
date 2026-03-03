@@ -1,1030 +1,339 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Image from "next/image";
 import CTASection from "@/components/cta";
 import {
-  ChevronLeft,
-  ChevronRight,
   MapPin,
   Calendar,
   Clock,
   Share,
-  Share2,
-  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
-const FEBRUARY_EVENTS = [
-  {
-    title: "Billion Dollar Impact: Next Gen Changemakers",
-    date: "Saturday, Feb 28",
-    time: "10:00 AM – 6:30 PM",
-    registerUrl: "https://luma.com/7zynhb71",
-    location: "Copacabana Nightclub- New York, New York",
-    hostedBy: "Kyle Matthys, Stacey Lauren & Climate Cafe NYC",
-    image: "/images/events/event1.png",
-    avatars: [
-      "/images/events/avatar-1.png",
-      "/images/events/avatar-2.png",
-      "/images/events/avatar-3.png",
-    ],
-  },
-  {
-    title: "Silent Auction Training: Next Gen Changemakers",
-    date: "Monday, Feb 23",
-    time: "2:00 PM – 3:00 PM",
-    registerUrl: "https://luma.com/mef8t5cw",
-    location: "Zoom",
-    hostedBy: "Kyle Matthys, Stacey Lauren & Climate Cafe NYC",
-    image: "/images/events/event3.png",
-    avatars: [
-      "/images/events/avatar-1.png",
-      "/images/events/avatar-2.png",
-      "/images/events/avatar-3.png",
-    ],
-  },
-];
+const MONTHLY_EVENTS: Record<string, any[]> = {
+  "January 2026": [
+    {
+      id: 0,
+      title: "TRIIBE Fundraising Mixer",
+      date: "Saturday, Jan 24",
+      time: "10:00 AM – 6:30 PM",
+      location: "Copacabana Nightclub, New York, New York",
+      image: "/images/events/Jan.png",
+      isPast: true,
+      type: "IN-PERSON",
+      footerText: "This event ended 30 days ago",
+    },
+  ],
+  "February 2026": [
+    {
+      id: 1,
+      title: "Billion Dollar Impact: Next Gen Changemakers",
+      date: "Saturday, Feb 28",
+      time: "10:00 AM – 6:30 PM",
+      location: "Copacabana Nightclub, New York, New York",
+      image: "/images/events/Feb.jpg",
+      status: "closed",
+      type: "IN-PERSON",
+      lumaUrl: "https://luma.com/7zynhb71",
+    },
+    {
+      id: 2,
+      title: "Billion Dollar Impact: Next Gen Changemakers",
+      date: "Saturday, Feb 28",
+      time: "10:00 AM – 6:30 PM",
+      location: "Copacabana Nightclub, New York, New York",
+      image: "/images/events/Feb.jpg",
+      status: "closed",
+      type: "IN-PERSON",
+    },
+  ],
+  "March 2026": [],
+};
 
-const SPEAKERS = [
-  {
-    name: "Jillian Dilorio",
-    title: "President of We Are Enough",
-    image: "/images/events/speakers/Jillian Dilorio2.png",
-    linkedin: "https://www.linkedin.com/in/jillian-diiorio-63057b10/",
-  },
-  {
-    name: "Karen Salmansohn",
-    title: "Celebrity Author",
-    image: "/images/events/speakers/Karen Salmansohn.png",
-    linkedin: "https://www.linkedin.com/in/karensalmansohn/",
-  },
-  {
-    name: "Tahnoon Murtza",
-    title: "Next-Gen founder of Grey Sheep Ventures",
-    image: "/images/events/speakers/Tahnoon Murtza.png",
-    linkedin: "https://www.linkedin.com/in/tahnoon-m-b4071419a/",
-  },
-  {
-    name: "Hikaru Hayakawa",
-    title: "Executive Director Climate Cardinals",
-    image: "/images/events/speakers/Hikaru Hayakawa.png",
-    linkedin: "https://www.linkedin.com/in/hikaruhayakawa/",
-  },
-  {
-    name: "Nayla Jimenez",
-    title: "Executive Director Philippine Health Initiative",
-    image: "/images/events/speakers/Nayla Jimenez.png",
-    linkedin: "https://www.linkedin.com/in/naylajimenez/",
-  },
-  {
-    name: "Marissa Meltzer",
-    title: "Director of Partnerships for David Meltzer Enterprises",
-    image: "/images/events/speakers/Marissa Meltzer.png",
-    linkedin: "https://www.linkedin.com/in/marissa-meltzer/",
-  },
-  {
-    name: "Dr. Cheng Davis",
-    title: "President of the Forum for World Education",
-    image: "/images/events/speakers/Cheng Davis.png",
-    linkedin: "https://www.linkedin.com/in/cheng-davis-82511937/",
-  },
-  {
-    name: "Chirag Nijjer",
-    title: "Brand Historian for Google, Shopify, History Channel",
-    image: "/images/events/speakers/Chirag Nijjer.png",
-    linkedin: "https://www.linkedin.com/in/chiragspeaks",
-  },
-  {
-    name: "Nick Salvatoriello",
-    title:
-      "Partner & Customer Marketing Consultant, B2B Event Facilitator & Strategist",
-    image: "/images/events/speakers/Nick Salvatoriello1.png",
-    linkedin: "https://www.linkedin.com/in/nicksal/",
-  },
-  {
-    name: "Geoffrey Sargeant",
-    title:
-      "Managing Director Dominari Securities and Executive Ambassador of The REAL",
-    image: "/images/events/speakers/Geoffrey Sargeant.png",
-    linkedin: "https://www.linkedin.com/in/geoffsargeant/",
-  },
-  {
-    name: "Gregg Meyer",
-    title:
-      "Chief Sustainability Officer Steve Madden and Head of Steve Madden Corporate Foundation",
-    image: "/images/events/speakers/Gregg Meyer.png",
-    linkedin: "https://www.linkedin.com/in/gregg-meyer/",
-  },
-  {
-    name: "Michelle Cameron Coulter",
-    title:
-      "Olympic Gold Medalist, Tedx speaker, and Inspiring Possibilities podcast",
-    image: "/images/events/speakers/Michelle Coulter.png",
-    linkedin: "https://www.linkedin.com/in/michelle-cameron-coulter-o-c-oly/",
-  },
-  {
-    name: "Gabriela Jaeger",
-    title: "Founder of Global Changemakers",
-    image: "/images/events/speakers/Gabriela Jaeger.png",
-    linkedin: "https://www.linkedin.com/in/gabriela-jaeger-b04446a5/",
-  },
-  {
-    name: "Anou Singhvi",
-    title:
-      "Managing Director P.C. Lunia Purveyors of Precious Objects since 1850",
-    image: "/images/events/speakers/Anou Singhvi.png",
-    linkedin: "https://www.linkedin.com/in/anousinghvi/",
-  },
-  {
-    name: "Kim Sorrelle",
-    title: "UN Keynote Speaker, TV Show Host",
-    image: "/images/events/speakers/Kim Sorrelle.png",
-    linkedin: "https://www.linkedin.com/in/kim-sorrelle-11079523/",
-  },
-  {
-    name: "Laura Carney",
-    title: "Best-Selling Author",
-    image: "/images/events/speakers/Laura Carney.png",
-    linkedin: "https://www.linkedin.com/in/lauracarney/",
-  },
-  {
-    name: "Japneet K",
-    title:
-      "Legacy Board TRIIBE, Director Cybersecurity, Founding Chair – The Cyber Studio by The Digital Economist, Board Director ISACA and STEM international award-winning artist",
-    image: "/images/events/speakers/JapNeet K.png",
-    linkedin: "https://www.linkedin.com/in/japneet-k-34816426",
-  },
-  {
-    name: "Dr. Purnima Voria",
-    title:
-      "CEO National US India Chamber of Commerce and President of the Rajasthan Foundation USA",
-    image: "/images/events/speakers/Purnima Voria.png",
-    linkedin: "https://www.linkedin.com/in/purnimavoria/",
-  },
-  {
-    name: "Stacey Lauren",
-    title: "Founder of Do The Thing",
-    image: "/images/events/speakers/Stacey Lauren.png",
-    linkedin: "https://www.linkedin.com/in/staceylauren/",
-  },
-  {
-    name: "Kyle Matthys",
-    title: "Founder of TRIIBE",
-    image: "/images/events/speakers/Kyle Matthys.png",
-    linkedin: "https://www.linkedin.com/in/kylematthys/",
-  },
-];
+const EventsPage = () => {
+  const [viewDate, setViewDate] = useState(new Date());
+  const [calendarYear, setCalendarYear] = useState(2026);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [filter, setFilter] = useState("ALL EVENTS");
+  const calendarRef = useRef<HTMLDivElement>(null);
 
-const SPEAKER_PANELS = [
-  {
-    title: "The Architects Of Impact: Where Capital Meets Purpose",
-    subtitle: "Panel",
-    speakers: [
-      {
-        name: "Lauren Young",
-        title: "Founder, Living Waters Global",
-        image: "/images/events/speakers/Lauren Young.png",
-        linkedin: "https://www.linkedin.com/in/livingwatersglobal/",
-      },
-      {
-        name: "Karen Salmansohn",
-        title: "Leader, The Mortality Awareness Movement",
-        image: "/images/events/speakers/Karen Salmansohn.png",
-        linkedin: "https://www.linkedin.com/in/karensalmansohn/",
-      },
-      {
-        name: "Anou Singhvi",
-        title: "9th gen. Steward, PC Lunia Art Collection",
-        image: "/images/events/speakers/Anou Singhvi.png",
-        linkedin: "https://www.linkedin.com/in/anousinghvi/",
-      },
-      {
-        name: "Gabriela Jaeger",
-        title: "Founder, Global Changemakers",
-        image: "/images/events/speakers/Gabriela Jaeger.png",
-        linkedin: "https://www.linkedin.com/in/gabriela-jaeger-b04446a5/",
-      },
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
 
-      {
-        name: "Dr. Cheng Davis",
-        title: "President, Forum for World Education",
-        image: "/images/events/speakers/Cheng Davis.png",
-        linkedin: "https://www.linkedin.com/in/cheng-davis-82511937/",
-      },
-    ],
-  },
-  {
-    title: "Next Gen: Taking Root Today To Advance Tomorrow",
-    subtitle: "Panel",
-    speakers: [
-      {
-        name: "Tahnoon Murtza",
-        title: "Founding Partner,  Grey Sheep Ventures",
-        image: "/images/events/speakers/Tahnoon Murtza.png",
-        linkedin: "https://www.linkedin.com/in/tahnoon-m-b4071419a/",
-      },
-      {
-        name: "Hikaru Hayakawa",
-        title: "Executive Director, Climate Cardinals",
-        image: "/images/events/speakers/Hikaru Hayakawa1.png",
-        linkedin: "https://www.linkedin.com/in/hikaruhayakawa/",
-      },
-      {
-        name: "Marissa Meltzer",
-        title: "Director of Brand partnerships, David Meltzer Enterprises",
-        image: "/images/events/speakers/Marissa Meltzer.png",
-        linkedin: "https://www.linkedin.com/in/marissa-meltzer/",
-      },
-      {
-        name: "Nayla Jimenez",
-        title: "Executive Director, Philippine Health Initiative",
-        image: "/images/events/speakers/Nayla Jimenez.png",
-        linkedin: "https://www.linkedin.com/in/naylajimenez/",
-      },
-      {
-        name: "Derin Sezgin",
-        title: "President, SDG Youth Connect",
-        image: "/images/events/speakers/Derin Sezgin.png",
-        linkedin: "https://www.linkedin.com/in/derin-ege-sezgin/",
-      },
-    ],
-  },
+  const currentMonthName = months[viewDate.getMonth()];
+  const selectedYear = viewDate.getFullYear();
+  const selectedMonthYear = `${currentMonthName} ${selectedYear}`;
 
-  {
-    title: "The Real: Turning Honesty Into Action",
-    subtitle: "Motivational Speakers",
-    speakers: [
-      {
-        name: "Geoffrey Sargeant",
-        title: "Executive Ambassador, The Real",
-        image: "/images/events/speakers/Geoffrey Sargeant.png",
-        linkedin: "https://www.linkedin.com/in/geoffsargeant/",
-      },
-      {
-        name: "Tom Tamberrino",
-        title: "Executive Ambassador, The Real",
-        image: "/images/events/speakers/Tom Tamberrino.png",
-        linkedin: "https://www.linkedin.com/in/tom-t-38a917/",
-      },
-      {
-        name: "Shawn Nason",
-        title: "Executive Ambassador, The Real",
-        image: "/images/events/speakers/Shawn Nason.png",
-        linkedin: "https://www.linkedin.com/in/nasonshawn/",
-      },
-    ],
-  },
-  {
-    title: "The Power Of Community: Achieving Goals Together",
-    subtitle: "Panel",
-    speakers: [
-      {
-        name: "Michelle Cameron Coulter",
-        title:
-          "Olympic Gold Medalist​ TedX Speaker, Host Inspiring Possibilities Podcast",
-        image: "/images/events/speakers/Michelle Coulter.png",
-        linkedin:
-          "https://www.linkedin.com/in/michelle-cameron-coulter-o-c-oly/",
-      },
-      {
-        name: "Kim Sorrelle",
-        title: "United Nations Keynote Speaker and Host, the kim Sorrelle show",
-        image: "/images/events/speakers/Kim Sorrelle.png",
-        linkedin: "https://www.linkedin.com/in/kim-sorrelle-11079523/",
-      },
-      {
-        name: "Vin Infante",
-        title:
-          "Therapist, Mental Performance Coach, Founder of The Table, Host of 1% Podcast",
-        image: "/images/events/speakers/Vin Infante.png",
-        linkedin: "https://www.linkedin.com/in/vininfante/",
-      },
-      {
-        name: "Bree Rosenblum",
-        title: "Professor, UC Berkeley, Founder Authentic Academic​",
-        image: "/images/events/speakers/Bree Rosenblum.png",
-        linkedin: "https://www.linkedin.com/in/bree-rosenblum",
-      },
+  const monthEvents = MONTHLY_EVENTS[selectedMonthYear] || [];
+  const filteredEvents =
+    filter === "ALL EVENTS"
+      ? monthEvents
+      : monthEvents.filter((event) => event.type === filter);
 
-      {
-        name: "Stacey Lauren",
-        title: "Founder, Do The Thing and Billion Dollar Impact​",
-        image: "/images/events/speakers/Stacey Lauren.png",
-        linkedin: "https://www.linkedin.com/in/staceylauren/",
-      },
-    ],
-  },
-
-  {
-    title: "From Summit To Systems",
-    subtitle: "Final Panel",
-    speakers: [
-      {
-        name: "Kyle Matthys",
-        title: "Founder & CEO, TRIIBE​",
-        image: "/images/events/speakers/Kyle Matthys.png",
-        linkedin: "https://www.linkedin.com/in/kylematthys/",
-      },
-      {
-        name: "Gregg Meyer",
-        title: "CSO Steve Madden & President Steve Madden Foundation",
-        image: "/images/events/speakers/Gregg Meyer.png",
-        linkedin: "https://www.linkedin.com/in/gregg-meyer/",
-      },
-      {
-        name: "Japneet K",
-        title:
-          "Founder, ​Green Kids Chronicles ​Founding Chair, ​The Cyber Studio by The Digital Economist​ Board Director, ​ISACA",
-        image: "/images/events/speakers/JapNeet K1.png",
-        linkedin: "https://www.linkedin.com/in/japneet-k-34816426",
-      },
-      {
-        name: "Dr. Purnima Voria",
-        title: "Founder & CEO,​ National US India Chamber of Commerce",
-        image: "/images/events/speakers/Purnima Voria.png",
-        linkedin: "https://www.linkedin.com/in/purnimavoria/",
-      },
-      {
-        name: "Lara Stein",
-        title: "Founder, TedX​ Co-Founder & CEO, Boma Global​",
-
-        image: "/images/about/team/Lara Stein.jpg",
-        linkedin: "https://www.linkedin.com/in/citizenstein/",
-      },
-    ],
-  },
-  {
-    title: "Event Facilitators",
-    subtitle: "Our MCs",
-    speakers: [
-      {
-        name: "Chirag Nijjer",
-        title: "Brand Historian for Google, Shopify, History Channel",
-        image: "/images/events/speakers/Chirag Nijjer.png",
-        linkedin: "https://www.linkedin.com/in/chiragspeaks",
-      },
-      {
-        name: "Nick Salvatoriello",
-        title: "B2B Event Facilitator & Strategist",
-        image: "/images/events/speakers/Nick Salvatoriello1.png",
-        linkedin: "https://www.linkedin.com/in/nicksal/",
-      },
-    ],
-  },
-];
-
-const EVENT_PERKS = [
-  { id: 1, title: "Lunch", desc: "Because big ideas need fuel" },
-
-  {
-    id: 2,
-    title: "Interactive Workshops",
-    desc: "Create, collaborate, and connect",
-  },
-  {
-    id: 3,
-    title: "Live auction",
-    desc: "Unique opportunities: workshops, experiences, and offerings from mentors, creators, and leaders",
-  },
-  {
-    id: 4,
-    title: "Live Bids",
-    desc: "To help fund the next generation of changemakers",
-  },
-];
-
-const page = () => {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-
-  const [isReady, setIsReady] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const currentEvent = FEBRUARY_EVENTS[activeIndex];
   useEffect(() => {
-    const dateString =
-      FEBRUARY_EVENTS.indexOf(currentEvent) === 0
-        ? "2026-02-28T10:00:00-05:00"
-        : "2026-02-23T14:00:00-05:00";
-
-    const target = new Date(dateString).getTime();
-
-    const update = () => {
-      const now = new Date().getTime();
-      const diff = target - now;
-
-      if (diff > 0) {
-        setTimeLeft({
-          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((diff / 1000 / 60) % 60),
-          seconds: Math.floor((diff / 1000) % 60),
-        });
-        setIsReady(true);
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        calendarRef.current &&
+        !calendarRef.current.contains(event.target as Node)
+      ) {
+        setIsCalendarOpen(false);
       }
     };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-    update();
-    const interval = setInterval(update, 1000);
-    return () => clearInterval(interval);
-  }, [currentEvent]);
-
-  const goToPrevious = () => {
-    setActiveIndex((prev) =>
-      prev === 0 ? FEBRUARY_EVENTS.length - 1 : prev - 1,
-    );
-  };
-
-  const goToNext = () => {
-    setActiveIndex((prev) =>
-      prev === FEBRUARY_EVENTS.length - 1 ? 0 : prev + 1,
-    );
+  const handleMonthSelect = (monthIndex: number) => {
+    const newDate = new Date(viewDate);
+    newDate.setMonth(monthIndex);
+    newDate.setFullYear(calendarYear);
+    setViewDate(newDate);
+    setIsCalendarOpen(false);
   };
 
   return (
     <main className="min-h-screen bg-white">
+      <style jsx global>{`
+        html {
+          overflow-y: scroll;
+        }
+      `}</style>
       <Header />
-      <section className="pt-32 pb-20 px-4 md:px-25 lg:px-50 bg-white ">
-        <div className=" max-w-260 mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-16 items-start">
-            {/* Left Column: Details */}
-            <div className="flex flex-col">
-              <h1 className="text-4xl font-bold text-black leading-[1.1] mb-10 max-w-[600px]">
-                {currentEvent.title}
+
+      {/* Hero Section  */}
+      <section className="pt-32 pb-20 px-4 md:px-25 lg:px-50">
+        <div className="max-w-300 mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-12 items-center">
+            <div>
+              <h1 className="font-bold text-black text-4xl md:text-5xl mb-6 leading-tight">
+                Connecting Youth Leaders with the Resources to Scale Impact
               </h1>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 mb-8 text-[#495565]">
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <Calendar size={20} className="text-gray-400" />
-                    <span className="text-[17px]">{currentEvent.date}</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Clock size={20} className="text-gray-400" />
-                    <span className="text-[17px]">{currentEvent.time}</span>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <MapPin size={20} className="text-gray-400 mt-1" />
-                  <span className="text-[17px] leading-snug">
-                    {currentEvent.location.split("-").map((part, i) => (
-                      <React.Fragment key={i}>
-                        {part.trim()}
-                        {i === 0 ? "," : ""}
-                        <br />
-                      </React.Fragment>
-                    ))}
-                  </span>
-                </div>
-              </div>
-
-              {/* Avatar Section */}
-              <div className="flex items-center gap-3 mb-10">
-                <div className="flex -space-x-2.5">
-                  {currentEvent.avatars.map((src, i) => (
-                    <div
-                      key={i}
-                      className="relative w-8 h-8 rounded-full border-2 border-white overflow-hidden bg-gray-100"
-                    >
-                      <Image
-                        src={src}
-                        alt="Host"
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-                <p className="text-sm text-[#495565] font-medium">
-                  Hosted by {currentEvent.hostedBy}
-                </p>
-              </div>
-              <div className=" pt-6 flex flex-col md:flex-row  gap-8">
+              <p className="text-[#495565] text-lg mb-8 leading-relaxed">
+                TRIIBE hosts convening experiences that bring together youth
+                nonprofit founders, mentors, and partners to build connections.
+              </p>
+              <div className="flex">
                 <a
-                  href={currentEvent.registerUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block w-fit bg-[#1C5945] text-white px-10 py-3.5 rounded-lg font-bold text-lg hover:bg-[#163a30] transition-all text-center"
+                  href="#updates"
+                  className="px-8 py-3 bg-[#1C5945] text-white rounded-lg font-medium"
                 >
-                  Register
+                  Get Updates
                 </a>
-
-                {FEBRUARY_EVENTS.indexOf(currentEvent) === 0 && (
-                  <a
-                    href="https://thetriibe.beehiiv.com/p/triibe-next-gen-changemaker-summit-invitation"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block w-fit bg-[#1C5945] text-white px-10 py-3.5 rounded-lg font-bold text-lg hover:bg-[#163a30] transition-all text-center"
-                  >
-                    Newsletter
-                  </a>
-                )}
               </div>
             </div>
-
-            {/* Right Column: Featured Image */}
-            <div className="relative aspect-square w-full rounded-2xl overflow-hidden shadow-sm">
-              <Image
-                src={currentEvent.image}
-                alt="Event Poster"
-                fill
-                className="object-cover"
-              />
+            <div className="grid grid-cols-2 gap-2">
+              <div className="relative aspect-square rounded-tl-4xl overflow-hidden">
+                <Image
+                  src="/images/events/summit-1.jpg"
+                  alt="1"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="relative aspect-square rounded-tr-4xl overflow-hidden">
+                <Image
+                  src="/images/events/newImg.jpg"
+                  alt="2"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="relative aspect-square rounded-bl-4xl overflow-hidden">
+                <Image
+                  src="/images/events/summit-2.jpg"
+                  alt="3"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="relative aspect-square rounded-br-4xl overflow-hidden">
+                <Image
+                  src="/images/events/summit-4.jpg"
+                  alt="4"
+                  fill
+                  className="object-cover"
+                />
+              </div>
             </div>
           </div>
-
-          {/* Toggle Indicators (Circular Icons) */}
-          {/* <div className="flex items-center justify-between mt-12">
-
-            <button
-              onClick={goToPrevious}
-              className="w-12 h-12 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
-              aria-label="Previous event"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-
-
-            <div className="flex gap-2">
-              {FEBRUARY_EVENTS.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setActiveIndex(index)}
-                  className={`h-3 w-3 rounded-full transition-all ${
-                    index === activeIndex ? "bg-[#1D4D3F]" : "bg-gray-300"
-                  }`}
-                  aria-label={`Go to event ${index + 1}`}
-                />
-              ))}
-            </div>
-
-
-            <button
-              onClick={goToNext}
-              className="w-12 h-12 flex items-center justify-center hover:bg-gray-100 rounded-full transition-colors"
-              aria-label="Next event"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
-          </div> */}
         </div>
       </section>
 
-      {/* About Section */}
-      {FEBRUARY_EVENTS.indexOf(currentEvent) === 0 && (
-        <section className="pt-12 pb-16   px-4 md:px-25 lg:px-50 bg-white ">
-          <div className=" max-w-260 mx-auto">
-            <div className="max-w-[850px]">
-              {/* Section Title */}
-              <h2 className="text-2xl font-bold text-black mb-8">
-                About Event
-              </h2>
-
-              {/* Static Description Content */}
-              <div className="space-y-6 text-[#4A5565] text-lg leading-relaxed mb-10">
-                <p>
-                  A full-day summit + global showcase supporting the next
-                  generation of nonprofit founders.
-                </p>
-                <p>
-                  On February 28th, TRIIBE and Do The Thing are bringing
-                  together an extraordinary community of builders, mentors, and
-                  supporters for a full-day experience designed to celebrate and
-                  fund the next generation of change makers.
-                </p>
-                <p>
-                  This gala will begin at 10:00 AM and conclude at 6:30 PM at
-                  the Copacabana on 51st and 11th Street.
-                </p>
-                <p>
-                  VIP Guests will be invited for a private dinner the night
-                  before.
-                </p>
-              </div>
-
-              {/* Static Tags Section */}
-              <div className="flex flex-wrap gap-3">
-                {[
-                  "Wellness",
-                  "Tech",
-                  "Climate",
-                  "Purpose",
-                  "Taking root today to advance tomorrow",
-                ].map((tag, i) => (
-                  <span
-                    key={i}
-                    className="px-4 py-2 border border-gray-200 rounded-lg text-[#364153] text-sm font-medium bg-white"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* About Section Event 2*/}
-      {FEBRUARY_EVENTS.indexOf(currentEvent) === 1 && (
-        <section className="pt-12 pb-16   px-4 md:px-25 lg:px-50 bg-white ">
-          <div className=" max-w-260 mx-auto">
-            <div className="max-w-[850px]">
-              {/* Section Title */}
-              <h2 className="text-2xl font-bold text-black mb-8">
-                About Event
-              </h2>
-
-              {/* Static Description Content */}
-              <div className="space-y-6 text-[#4A5565] text-lg leading-relaxed mb-10">
-                <p>
-                  Billion Dollar Impact Marketplace Virtual Info Session (Zoom)
-                </p>
-                <p>
-                  If you have a product, service, or experience you’d like to
-                  contribute to the upcoming Next Gen Changemakers Summit, this
-                  live virtual training will show you exactly how to have it
-                  featured inside the Billion Dollar Impact Marketplace Silent
-                  Auction, with select opportunities also being featured in the
-                  Live Auction.
-                </p>
-                <p>
-                  This is an opportunity to showcase what you’ve created, gain
-                  visibility with an aligned audience, generate revenue, and be
-                  part of a new model designed to support changemakers while
-                  creating meaningful impact.
-                </p>
-                <p>
-                  When your item sells, you receive 40% of the profits, while
-                  TRIIBE also receives 40%, helping fund and support the next
-                  generation of changemakers. This creates a powerful model
-                  where your work is showcased, you earn revenue, and you
-                  contribute to something larger, all at the same time!
-                </p>
-              </div>
-
-              {/* Static Tags Section */}
-              <div className="flex flex-wrap gap-3">
-                {[
-                  "Wellness",
-                  "Tech",
-                  "Climate",
-                  "Purpose",
-                  "Taking root today to advance tomorrow",
-                ].map((tag, i) => (
-                  <span
-                    key={i}
-                    className="px-4 py-2 border border-gray-200 rounded-lg text-[#364153] text-sm font-medium bg-white"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Speakers */}
-      {FEBRUARY_EVENTS.indexOf(currentEvent) === 0 && (
-        <section className="pt-12 pb-16  px-4 md:px-25 lg:px-50 bg-white ">
-          <div className=" max-w-260 mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-16 text-black tracking-tight">
-              Run Of Show
+      {/* Events Section */}
+      <section className="py-20 px-4 md:px-25 lg:px-50 bg-[#3036411A]">
+        <div className="max-w-300 mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-6">
+            <h2 className="text-4xl font-bold text-black">
+              {currentMonthName} Events
             </h2>
 
-            <div className="mb-20">
-              <div className="mb-10 border-b-2 border-blue-100 pb-4">
-                <span className="text-sm font-bold uppercase tracking-widest text-black">
-                  Activation
-                </span>
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mt-2 tracking-tight">
-                  We Are Enough
-                </h3>
-              </div>
-
-              <div className="flex flex-col lg:flex-row items-center justify-start w-full group  gap-6">
-                {/* Left Side*/}
-                <a
-                  href="https://www.linkedin.com/in/jillian-diiorio-63057b10/"
-                  target="_blank"
-                  rel="noopener noreferrer"
+            <div className="flex flex-col items-end gap-4 w-full md:w-auto">
+              <div className="relative" ref={calendarRef}>
+                <button
+                  onClick={() => setIsCalendarOpen(!isCalendarOpen)}
+                  className="p-2.5 bg-white border border-gray-100 rounded-xl shadow-sm"
                 >
-                  <div className="flex flex-col items-center md:items-start shrink-0 md:mr-12">
-                    <div className="relative mb-6">
-                      <div className="relative  w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden">
-                        <div className="absolute " />
-                        <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-[3px] border-blue-200 group-hover:border-blue-500 transition-all duration-300">
-                          <img
-                            src="/images/events/speakers/Stacey Lauren.png"
-                            alt="Jillian Dilorio"
-                            className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-110"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-center md:text-left">
-                      <h4 className="font-bold text-gray-900 leading-tight mb-1 tracking-tight text-xl">
-                        Stacey Lauren​
-                      </h4>
-                      <p className="text-xs text-gray-500">
-                        Founder, Do The Thing <br /> and Billion Dollar Impact​
-                      </p>
-                    </div>
-                  </div>
-                </a>
+                  <Calendar size={22} className="text-black" />
+                </button>
 
-                <a
-                  href="https://www.linkedin.com/in/bree-rosenblum/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <div className="flex flex-col items-center md:items-start shrink-0">
-                    <div className="relative mb-6">
-                      <div className="relative  w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden">
-                        <div className="absolute " />
-                        <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-[3px] border-blue-200 group-hover:border-blue-500 transition-all duration-300">
-                          <img
-                            src="/images/events/speakers/Bree Rosenblum.png"
-                            alt="Bree Rosenblum"
-                            className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-110"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-center md:text-left">
-                      <h4 className="font-bold text-gray-900 leading-tight mb-1 tracking-tight text-xl">
-                        Bree Rosenblum​
-                      </h4>
-                      <p className="text-xs text-gray-500">
-                        Professor, UC Berkeley <br /> Founder Authentic Academic
-                      </p>
-                    </div>
-                  </div>
-                </a>
-
-                {/* Right Side: Controlled distance from the left */}
-                <div className="mt-10 md:mt-0 lg:ml-16 shrink-0">
-                  <img
-                    src="/images/events/speakers/WeAreEnough.png"
-                    alt="We Are Enough Graphic"
-                    className="w-70 h-70 rounded-2xl object-cover"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {SPEAKER_PANELS.map((panel, idx) => (
-              <React.Fragment key={idx}>
-                {/*  Billion Dollar Impact activation before the final panel */}
-                {idx === SPEAKER_PANELS.length - 2 && (
-                  <div className="mb-20">
-                    <div className="mb-10 border-b-2 border-blue-100 pb-4">
-                      <span className="text-sm font-bold uppercase tracking-widest text-black">
-                        Activation
+                {isCalendarOpen && (
+                  <div className="absolute top-full mt-4 right-0 w-[90vw] max-w-[320px] md:w-80 bg-white rounded-2xl shadow-2xl border border-gray-100 z-[100] p-6">
+                    <div className="flex justify-between items-center mb-6">
+                      <button
+                        onClick={() => setCalendarYear(calendarYear - 1)}
+                        className="text-gray-400 hover:text-black"
+                      >
+                        <ChevronLeft size={20} />
+                      </button>
+                      <span className="font-bold text-[#303641] text-xl">
+                        {calendarYear}
                       </span>
-                      <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mt-2 tracking-tight">
-                        Billion Dollar Impact
-                      </h3>
+                      <button
+                        onClick={() => setCalendarYear(calendarYear + 1)}
+                        className="text-gray-400 hover:text-black"
+                      >
+                        <ChevronRight size={20} />
+                      </button>
                     </div>
-
-                    <a
-                      href="https://www.linkedin.com/in/averycrumrine/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex flex-col md:flex-row items-center justify-start w-full group cursor-pointer"
-                    >
-                      {/* Left Side: Avery Profile */}
-                      <div className="flex flex-col items-center md:items-start shrink-0">
-                        <div className="relative mb-6">
-                          <div className="relative  w-24 h-24 md:w-32 md:h-32  rounded-full overflow-hidden">
-                            <div className="absolute  " />
-                            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-[3px] border-blue-200 group-hover:border-blue-500 transition-all duration-300">
-                              <img
-                                src="/images/events/speakers/Avery Crumrine.png"
-                                alt="Avery Crumrine"
-                                className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-110"
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="text-center md:text-left">
-                          <h4 className="font-bold text-gray-900 leading-tight mb-1 tracking-tight text-xl">
-                            Avery Brenna Crumrine
-                          </h4>
-                          <p className="text-xs text-gray-500">
-                            Public Speaker and Author, <br /> Intention Into
-                            Action
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Right Side: Avery's Activation Graphic */}
-                      <div className="mt-10 md:mt-0 md:ml-12 lg:ml-32 shrink-0">
-                        <img
-                          src="/images/events/speakers/Abc1.png"
-                          alt="Billion Dollar Impact Graphic"
-                          className="w-70 h-60 rounded-2xl object-cover"
-                        />
-                      </div>
-                    </a>
+                    <div className="grid grid-cols-3 border-l border-t border-gray-100">
+                      {months.map((month, idx) => (
+                        <button
+                          key={month}
+                          onClick={() => handleMonthSelect(idx)}
+                          className={`py-4 text-sm border-r border-b border-gray-100 transition-colors ${
+                            idx === viewDate.getMonth() &&
+                            selectedYear === calendarYear
+                              ? "bg-[#303641] text-white font-bold"
+                              : "text-[#495565] hover:bg-gray-50"
+                          }`}
+                        >
+                          {month}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 )}
-                <div key={idx} className="mb-20 last:mb-0">
-                  <div className="flex flex-col md:flex-row md:items-end justify-between border-b-2 border-blue-100 pb-4 mb-10">
-                    <div>
-                      <p className="text-sm font-bold text-black uppercase tracking-[0.2em] mb-1">
-                        {panel.subtitle}
-                      </p>
-                      <h3 className="text-2xl md:text-3xl font-bold text-black/80 tracking-tight">
-                        {panel.title}
-                      </h3>
+              </div>
+
+              <div className="flex gap-2">
+                {["ALL EVENTS", "VIRTUAL", "IN-PERSON"].map((type) => (
+                  <button
+                    key={type}
+                    onClick={() => setFilter(type)}
+                    className={`px-5 py-2 rounded-full text-xs font-bold transition-colors ${
+                      filter === type
+                        ? "bg-[#1C5945] text-white"
+                        : "bg-white text-[#495565] border border-gray-200"
+                    }`}
+                  >
+                    {type}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-6 min-h-[200px]">
+            {filteredEvents.length > 0 ? (
+              filteredEvents.map((event) => (
+                <div
+                  key={event.id}
+                  className="p-6 border border-gray-100 rounded-xl bg-white shadow-sm"
+                >
+                  <div className="flex flex-col md:flex-row gap-6">
+                    <div className="relative w-full md:w-32 h-32 flex-shrink-0">
+                      <Image
+                        src={event.image}
+                        alt={event.title}
+                        fill
+                        className="object-cover rounded-lg"
+                      />
+                    </div>
+                    <div className="flex-grow flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6">
+                      <div className="space-y-2">
+                        <div className="flex items-center gap-2">
+                          <h3 className="text-xl font-bold text-black">
+                            {event.title}
+                          </h3>
+                          {event.isPast && (
+                            <span className="px-3 py-0.5 bg-gray-100 text-[#8A919D] text-[10px] font-bold rounded-full uppercase">
+                              Past Event
+                            </span>
+                          )}
+                        </div>
+                        <div className="space-y-2">
+                          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-[#495565]">
+                            <div className="flex items-center gap-2">
+                              <Calendar size={14} className="text-gray-400" />
+                              <span>{event.date}</span>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <Clock size={14} className="text-gray-400" />
+                              <span>{event.time}</span>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 text-sm text-[#495565]">
+                            <MapPin size={14} className="text-gray-400" />
+                            <span>{event.location}</span>
+                          </div>
+                          {event.isPast && event.footerText && (
+                            <p className="text-sm text-gray-400 pt-1 italic">
+                              {event.footerText}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      {!event.isPast && (
+                        <div className="flex items-center gap-4 w-full md:w-auto">
+                          <button className="p-3 text-gray-400 border border-gray-200 rounded-xl hover:bg-gray-50">
+                            <Share size={20} className="text-black" />
+                          </button>
+                          {event.status === "open" ? (
+                            <a
+                              href={event.lumaUrl || "#"}
+                              className="w-full md:w-[180px] py-3 bg-[#052319] text-white rounded-xl font-bold text-center"
+                            >
+                              Register
+                            </a>
+                          ) : (
+                            <button
+                              disabled
+                              className="w-full md:w-[180px] py-3 bg-[#8A919D] text-white rounded-xl font-bold cursor-not-allowed text-center"
+                            >
+                              Registration Closed
+                            </button>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </div>
-
-                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-16 gap-x-10 justify-items-center">
-                    {panel.speakers.map((speaker) => (
-                      <a
-                        key={speaker.name}
-                        href={speaker.linkedin}
-                        target="_blank"
-                        className="flex flex-col items-center group cursor-pointer"
-                      >
-                        <div className="relative mb-6">
-                          <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-[3px] border-blue-200 group-hover:border-blue-500 transition-all duration-300">
-                            <img
-                              src={speaker.image}
-                              alt={speaker.name}
-                              className="w-full h-full object-cover grayscale-[10%] group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-110"
-                            />
-                          </div>
-                        </div>
-                        <h4 className="font-bold text-gray-900 text-center leading-tight mb-2 tracking-tight">
-                          {speaker.name}
-                        </h4>
-                        <p className="text-[10px] md:text-xs text-gray-500 text-center line-clamp-3 px-1 leading-relaxed">
-                          {speaker.title}
-                        </p>
-                      </a>
-                    ))}
-                  </div>
                 </div>
-              </React.Fragment>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {FEBRUARY_EVENTS.indexOf(currentEvent) === 0 && (
-        <section className="pt-12 pb-16  px-4 md:px-25 lg:px-50 bg-white ">
-          <div className=" max-w-260 mx-auto">
-            <h2 className="text-2xl font-bold text-black mb-12">Event Perks</h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 grid-flow-row md:grid-flow-col gap-x-16 gap-y-10">
-              {EVENT_PERKS.map((perk) => (
-                <div key={perk.id} className="flex items-start gap-6">
-                  {/* Number Box */}
-                  <div className="flex-shrink-0 w-12 h-12 bg-[#E9ECEF] flex items-center justify-center rounded-sm">
-                    <span className="text-black font-bold text-lg">
-                      {perk.id}
-                    </span>
-                  </div>
-
-                  {/* Text Content */}
-                  <div className="flex flex-col gap-1">
-                    <h3 className="text-xl font-bold text-black">
-                      {perk.title}
-                    </h3>
-                    <p className="text-[#495565] text-base leading-snug max-w-[400px]">
-                      {perk.desc}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Image 1 */}
-      {/* <section className=" py-16 px-6 bg-white md:px-[200px]">
-        <div className="max-w-260 mx-auto bg-white">
-
-          <div className="max-w-7xl mx-auto ">
-            <div className="relative w-full  aspect-[16/9] overflow-hidden bg-black">
-              <Image
-                src="/images/events/image 361.png"
-                alt="The Problem - 80% of student-led nonprofits fade within a year"
-                fill
-                className="object-contain"
-              />
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-      {/* <section className=" md:px-50 bg-white">
-        <div className="max-w-260 mx-auto bg-white">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-            <div className="bg-[#002c19] p-8 rounded-lg">
-              <h3 className="font-bold text-white text-3xl mb-6">
-                The Problem
-              </h3>
-              <p className="font-normal text-white/90 text-sm leading-relaxed">
-                The biggest drop-off isn’t inspiration. It's structure. When
-                founders turn 18 and enter college, time disappears, funding
-                dries up, and the support systems that helped them grow no
-                longer exist.
-              </p>
-            </div>
-
-
-            <div className="bg-[#AEDFF7] p-8 rounded-lg">
-              <h3 className="font-bold text-black text-3xl mb-6">
-                The Solution
-              </h3>
-              <p className="font-normal text-black text-sm leading-relaxed">
-                TRIIBE is the missing pipeline for social impact. We operate a
-                fellowship built for nonprofit founders, a clear path through
-                college with the three things early-stage founders actually
-                need: funding, mentorship, and community. Our cohorts are small
-                by design because we invest deeply. Each TRIIBE branch has
-                cohorts of five nonprofit founders with real operating
-                experience, each already running their foundation for an average
-                of six years. Several have already been recognized as Forbes 30
-                Under 30, George Bush Points of Light Fellows, and L’Oréal Women
-                of Worth.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-      {/* Image 2 */}
-      {/* <section className=" py-16 px-6 bg-white md:px-[200px]">
-        <div className="max-w-260 mx-auto bg-white">
-
-          <div className="max-w-7xl mx-auto ">
-            <div className="relative w-full  aspect-[16/9] overflow-hidden bg-black">
-              <Image
-                src="/images/events/image 360.png"
-                alt="The Problem - 80% of student-led nonprofits fade within a year"
-                fill
-                className="object-contain"
-              />
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-      <section className="pt-12 pb-20  px-4 md:px-25 lg:px-50 bg-white ">
-        <div className=" max-w-260 mx-auto">
-          <div className="mx-auto flex flex-col items-center">
-            <h2 className="text-2xl font-bold text-black mb-10">
-              Event starts in
-            </h2>
-
-            {/* Centered Timer Grid */}
-            <div className="flex gap-4 md:gap-6 mb-12 justify-center">
-              {[
-                { label: "Days", value: timeLeft.days },
-                { label: "Hours", value: timeLeft.hours },
-                { label: "Minutes", value: timeLeft.minutes },
-                // { label: "Seconds", value: timeLeft.seconds },
-              ].map((unit, i) => (
-                <div
-                  key={i}
-                  className="w-24 h-32 md:w-28 md:h-36 border-2 border-[#1D4D3F] rounded-lg flex flex-col items-center justify-center bg-white"
-                >
-                  <span className="text-4xl md:text-5xl font-bold text-black mb-1">
-                    {isReady ? unit.value.toString().padStart(2, "0") : "--"}
-                  </span>
-                  <span className="text-[#495565] text-sm font-medium uppercase tracking-wide">
-                    {unit.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            {/* Centered Button */}
-            <a
-              href={
-                activeIndex === 0
-                  ? "https://luma.com/7zynhb71"
-                  : "https://luma.com/mef8t5cw"
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-[#1C5945] text-white px-12 py-4 rounded-lg font-bold text-lg hover:bg-[#163a30] transition-all "
-            >
-              Register
-            </a>
+              ))
+            ) : (
+              <div className="p-12 border border-gray-100 rounded-xl bg-white text-left flex flex-col justify-center min-h-[180px]">
+                <h3 className="text-2xl font-normal text-black mb-4">
+                  No events for now
+                </h3>
+                <p className="text-[#495565]">Stay tuned for upcoming events</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -1035,4 +344,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default EventsPage;
