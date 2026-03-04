@@ -34,8 +34,8 @@ export default function Hero() {
           {/* Description */}
           <div className="flex flex-col items-center pb-6">
             <p className="font-['DM_Sans',Helvetica]font-normal text-white/90 text-base md:text-lg text-center tracking-[0] leading-relaxed max-w-125 ">
-              Funding, mentorship, and community for college students taking
-              root today to advance tomorrow
+              Funding, mentorship, and community for changemakers taking root
+              today to advance tomorrow
             </p>
           </div>
 

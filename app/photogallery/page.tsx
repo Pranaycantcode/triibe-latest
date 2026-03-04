@@ -5,7 +5,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Image from "next/image";
 import Link from "next/link";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
 import CTASection from "@/components/cta";
 
 const FEATURED_IMAGES = [
@@ -59,7 +59,7 @@ const ARCHIVE_ITEMS = [
     title: "Changemakers Summit 2025",
     image: "/images/photogallery/ChangemakersSummit14New.png",
     description:
-      "At the World Economic Forum in Davos (YEAR), TRIIBE connected with global leaders to spotlight youth-led nonprofit innovation and expand the mentorship, funding, and community founders need to scale impact.",
+      "The TRIIBE Changemaker Summit brought together next-gen changemakers and seasoned leaders for an afternoon of storytelling, real-world lessons, and community building at Newlab in Brooklyn.",
     allPhotos: [
       "/images/photogallery/ChangemakersSummit11New.png",
       "/images/photogallery/ChangemakersSummit12New.png",
@@ -94,7 +94,7 @@ const ARCHIVE_ITEMS = [
     title: "Binky",
     image: "/images/photogallery/Binky2New.png",
     description:
-      "At the World Economic Forum in Davos (YEAR), TRIIBE connected with global leaders to spotlight youth-led nonprofit innovation and expand the mentorship, funding, and community founders need to scale impact.",
+      "Binky is the loyal companion to Anthony, Director of Marketing and Communications at TRIIBE, and an invaluable and beloved supporter to the whole team. She brings warmth and joy to everything TRIIBE does.",
     allPhotos: [
       "/images/photogallery/Binky1New.png",
       "/images/photogallery/Binky2New.png",
@@ -139,6 +139,15 @@ const PhotoGallery = () => {
 
       <section className="pt-32 pb-12 px-4 md:px-25 lg:px-50">
         <div className="max-w-[1200px] mx-auto">
+          <Link
+            href="/about"
+            className="flex items-center gap-2 text-[#4A5565]  mb-12  w-fit "
+          >
+            <ArrowLeft size={20} className="" />
+            <span className="text-sm underline underline-offset-4 text-[#4A5565]">
+              Back to About page
+            </span>
+          </Link>
           <h1 className="text-4xl md:text-5xl font-bold text-black mb-12">
             Photo Gallery
           </h1>
