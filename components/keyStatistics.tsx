@@ -35,7 +35,7 @@ const supportedByLogos = [
   {
     src: "/images/home/image-129.png",
     alt: "Supported by partner 3",
-    className: "w-64 h-[58px] object-cover",
+    className: "w-64 h-[58px] object-contain",
   },
   {
     src: "/images/home/image-130.png",
@@ -46,6 +46,12 @@ const supportedByLogos = [
     src: "/images/home/dothething.png",
     alt: "Supported by partner 4",
     className: "w-[130px] h-[84px]",
+  },
+
+  {
+    src: "/images/home/streamr.png",
+    alt: "Supported by partner 3",
+    className: "w-64 h-[58px] object-contain",
   },
 ];
 
@@ -85,6 +91,56 @@ const partneredWithLogos = [
     alt: "Partnered with organization 4",
     className: "w-80 h-[150px] md:h-[100px] object-contain ",
   },
+  {
+    src: "/images/home/learningplanet.png",
+    alt: "Partnered with organization 4",
+    className: "w-80 h-[150px] md:h-[150px] object-contain ",
+  }, //
+  {
+    src: "/images/home/climatecafe.png",
+    alt: "Partnered with organization 4",
+    className: "w-80 h-[150px] md:h-[150px] object-contain ",
+  },
+  {
+    src: "/images/home/we.png",
+    alt: "Partnered with organization 4",
+    className: "w-80 h-[150px] md:h-[150px] object-contain ",
+  },
+  {
+    src: "/images/home/touchalife.png",
+    alt: "Partnered with organization 4",
+    className: "w-80 h-[150px] md:h-[150px] object-contain ",
+  },
+  {
+    src: "/images/home/impacthub.png",
+    alt: "Partnered with organization 4",
+    className: "w-80 h-[150px] md:h-[150px] object-contain ",
+  },
+  {
+    src: "/images/home/billiondollar.png",
+    alt: "Partnered with organization 4",
+    className: "w-80 h-[150px] md:h-[150px] object-contain ",
+  },
+  {
+    src: "/images/home/one.png",
+    alt: "Partnered with organization 4",
+    className: "w-80 h-[150px] md:h-[150px] object-contain ",
+  },
+  {
+    src: "/images/home/finpublica.png",
+    alt: "Partnered with organization 4",
+    className: "w-80 h-[150px] md:h-[150px] object-contain ",
+  },
+  {
+    src: "/images/home/silc.png",
+    alt: "Partnered with organization 4",
+    className: "w-80 h-[150px] md:h-[150px] object-contain ",
+  },
+  {
+    src: "/images/home/fwe.png",
+    alt: "Partnered with organization 4",
+    className: "w-80 h-[150px] md:h-[150px] object-contain ",
+  },
 ];
 
 export default function KeyStatistics() {
@@ -110,7 +166,8 @@ export default function KeyStatistics() {
           <p className=" font-normal text-[#697282] text-xs text-center tracking-[0.60px] leading-4">
             SPONSORED BY
           </p>
-          <div className="flex items-center justify-center gap-8 lg:gap-15 flex-wrap  lg:flex-nowrap">
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-12 md:gap-8 place-items-center">
             {supportedByLogos.map((logo, index) => (
               <Image
                 key={index}
@@ -118,7 +175,7 @@ export default function KeyStatistics() {
                 alt={logo.alt}
                 src={logo.src}
                 width={256}
-                height={84}
+                height={100}
               />
             ))}
           </div>
@@ -128,7 +185,7 @@ export default function KeyStatistics() {
           <p className=" font-normal text-[#697282] text-xs text-center tracking-[0.60px] leading-4">
             PARTNERED WITH
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-8 place-items-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-12 md:gap-8 place-items-center">
             {partneredWithLogos.map((logo, index) => (
               <Image
                 key={index}
