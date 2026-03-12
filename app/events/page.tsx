@@ -91,6 +91,20 @@ const EventsPage = () => {
       {/* Events Section */}
       <MediaEventsList />
 
+      <section className="pt-32 pb-20 px-4 md:px-25 lg:px-50">
+        <div className="max-w-300 mx-auto">
+          <h2 className="text-3xl font-bold mb-8 text-black">Event Calendar</h2>
+          <iframe
+            src="https://luma.com/embed/calendar/cal-7Eel9YxQnoBh2PA/events"
+            width="100%" // Change to 100% to fill your container
+            height="800" // Increase height so it doesn't scroll inside itself
+            frameBorder="0"
+            style={{ border: "1px solid #E5E7EB", borderRadius: "12px" }} // Match your card rounding
+            allowFullScreen
+          />
+        </div>
+      </section>
+
       <CTASection />
       <Footer />
     </main>
