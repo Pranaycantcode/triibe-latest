@@ -10,6 +10,12 @@ const nextConfig = {
         protocol: "https",
         hostname: "cdn.prod.website-files.com",
       },
+      {
+        protocol: "https",
+        hostname: "images.lumacdn.com",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
   async headers() {

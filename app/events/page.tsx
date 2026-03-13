@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Image from "next/image";
@@ -18,8 +18,6 @@ import {
 } from "lucide-react";
 
 const EventsPage = () => {
-  const router = useRouter();
-
   return (
     <main className="min-h-screen bg-white">
       <style jsx global>{`
