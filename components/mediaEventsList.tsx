@@ -10,6 +10,7 @@ import {
   Share,
   ChevronLeft,
   ChevronRight,
+  Users,
 } from "lucide-react";
 
 export default function MediaEventsList() {
@@ -57,6 +58,7 @@ export default function MediaEventsList() {
               new Date(entry.event.end_at) > new Date() ? "open" : "closed",
             isPast: isPast,
             daysAgo: diffDays,
+            guestCount: entry.guestCount ?? null,
           };
         });
 
@@ -211,6 +213,15 @@ export default function MediaEventsList() {
                         <div className="flex items-center gap-2 text-sm text-[#495565]">
                           <MapPin size={14} className="text-gray-400" />
                           <span>{event.location}</span>
+                        </div>
+                        {/* GUEST COUNT */}
+                        <div className="flex items-center gap-2 text-sm text-[#495565]">
+                          <Users size={14} className="text-gray-400" />
+                          <span>
+                            {event.guestCount !== null
+                              ? `${event.guestCount} ${event.isPast ? "went" : "going"}`
+                              : "Guest count hidden"}
+                          </span>
                         </div>
                       </div>
                     </div>
