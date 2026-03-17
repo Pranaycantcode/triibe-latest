@@ -205,10 +205,10 @@ const PhotoGallery = () => {
             </p>
             <div className="pt-4 flex justify-center">
               <Link
-                href="/events"
+                href="/triibetalk"
                 className="bg-[#1C5945] text-white px-12 py-3.5 rounded-lg font-bold hover:bg-[#164737] transition-colors"
               >
-                Events
+                Triibe Talk
               </Link>
             </div>
           </div>
