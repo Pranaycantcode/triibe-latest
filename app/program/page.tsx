@@ -20,28 +20,28 @@ const testimonials = [
       "Receiving TRIIBE’s scholarship support further strengthened the work of Vervient Foundation by highlighting that community and connection matter as much as ideas. Knowing there’s a network of like-minded leaders cheering me on fuels our mission to empower students with an innovation mindset and reminds me that there’s always a shoulder to lean on in this journey.",
     name: "Gitanjali Rao",
     year: "TRIIBE Fellow Fall 2025",
-    organization: "Global Keynote, Vervient Foundation",
+    organization: "Global Keynote, Vervient Foundation est. 2018",
   },
   {
     quote:
       "TRIIBE has been an instrumental resource in making sure that my organization continues to be supported after high school. I'm extremely grateful for all of the support TRIIBE has given Philippine Health Initiative and TRIIBE's emphasis on centering youth changemakers has brought together a great community of incredible founders.",
     name: "Nayla Jimenez",
     year: "TRIIBE Fellow Fall 2025",
-    organization: "Founder, Philippine Health Initiative",
+    organization: "Founder, Philippine Health Initiative est. 2017",
   },
   {
     quote:
       "Through TRIIBE I’ve experienced what it truly means to be supported while building something meaningful. TRIIBE has provided more than funding, it has offered transformative mentorship,strategic structure, and a powerful community of values-driven founders who continuously challenge me to think bigger and lead with intention. When many young leaders enter college and suddenly find themselves navigating ambition without guidance, TRIIBE fills that gap. They help equip us with the tools, accountability, and clarity needed to turn vision into sustainable impact. Through personalized mentorship, I’ve sharpened my storytelling, strengthened my long-term strategy, and learned how to scale my initiatives thoughtfully. What makes TRIIBE unique is its belief that young leaders should never build alone. The fellowship model fosters collaboration, shared learning, and courageous leadership.",
     name: "Shrusti Amula",
     year: "TRIIBE Fellow Fall 2025",
-    organization: "Founder, Rise N Shine Foundation",
+    organization: "Founder, Rise N Shine Foundation est. 2019",
   },
   {
     quote:
       "I am immensely grateful for the TRIIBE community that has inspired me to continue SEED’s mission in bridging the global climate literacy gap. My TRIIBE mentors and peers are the leaders our world needs.",
     name: "Maya Gowda",
     year: "TRIIBE Fellow Spring 2025",
-    organization: "Founder, (SEED)",
+    organization: "Founder, (SEED) est. 2019",
   },
 ];
 
