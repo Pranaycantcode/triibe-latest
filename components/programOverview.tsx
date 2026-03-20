@@ -50,6 +50,12 @@ const programSections = [
 export default function ProgramOverview() {
   return (
     <section className="flex flex-col w-full items-start   md:px-25 lg:px-50  pt-16">
+      <div className="w-full bg-white flex flex-col items-center justify-center py-16">
+      <Image src="/UWL Raster File.png" alt="logo" width={100} height={100} />
+      <p className="mt-4 text-gray-700 text-center">
+        Get yourself registered onto the United World Leaders Platform
+      </p>
+    </div>
       {programSections.map((section, index) => (
         <div
           key={index}
