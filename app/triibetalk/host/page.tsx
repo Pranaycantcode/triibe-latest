@@ -168,12 +168,12 @@ const HostEventPage = () => {
   ];
 
   return (
-    <main className="bg-[#F9FAFB] min-h-screen font-sans">
+    <main className=" min-h-screen ">
       <Header />
 
-      <section className="pt-24 pb-20 px-4 md:px-25 lg:px-50 ">
-        <div className="max-w-300 mx-auto">
-          <div className="flex items-center gap-4 mb-10 ">
+      <section className="pt-20  px-4 md:px-25 lg:px-50 bg-white">
+        <div>
+          <div className="flex items-center gap-4 mb-4 ">
             <button
               onClick={() => window.history.back()}
               className="cursor-pointer text-gray-500 flex items-center gap-1 text-sm hover:text-black transition-all"
@@ -183,7 +183,11 @@ const HostEventPage = () => {
             <div className="h-4 w-[1px] bg-gray-300"></div>
             <h1 className="font-bold text-lg text-[#002C19]">Host an Event</h1>
           </div>
+        </div>
+      </section>
 
+      <section className="pt-8 pb-20 px-4 md:px-25 lg:px-50 bg-[#F9FAFB]">
+        <div className="max-w-300 mx-auto">
           <div className="max-w-[600px] mx-auto">
             <div className="flex justify-between items-center mb-10 md:mb-16 relative w-full px-2">
               {steps.map((s, idx) => (
@@ -534,8 +538,8 @@ const HostEventPage = () => {
                             />
                           </div>
 
-                          <div className="flex justify-between items-end pt-2">
-                            <div className="flex gap-6">
+                          <div className="flex flex-col gap-4 pt-2">
+                            <div className="flex flex-col md:flex-row gap-4 md:gap-6">
                               {[
                                 {
                                   id: "Established",
@@ -560,7 +564,11 @@ const HostEventPage = () => {
                                     <div className="absolute w-2 h-2 rounded-full bg-black opacity-0 peer-checked:opacity-100 transition-opacity" />
                                   </div>
                                   <span
-                                    className={`text-sm ${s.category === option.id ? "text-black font-medium" : "text-gray-500"}`}
+                                    className={`text-sm ${
+                                      s.category === option.id
+                                        ? "text-black font-medium"
+                                        : "text-gray-500"
+                                    }`}
                                   >
                                     {option.label}
                                   </span>
@@ -569,20 +577,22 @@ const HostEventPage = () => {
                             </div>
 
                             {isLastSpeaker && (
-                              <button
-                                type="button"
-                                onClick={addSpeaker}
-                                disabled={formData.speakers.length >= 4}
-                                className={`font-bold text-sm transition-all ${
-                                  formData.speakers.length >= 4
-                                    ? "text-gray-500 cursor-not-allowed"
-                                    : "text-[#1C5945] hover:opacity-80"
-                                }`}
-                              >
-                                {formData.speakers.length >= 4
-                                  ? "Only 4 speakers allowed"
-                                  : "+ Add Speaker"}
-                              </button>
+                              <div className="flex justify-end">
+                                <button
+                                  type="button"
+                                  onClick={addSpeaker}
+                                  disabled={formData.speakers.length >= 4}
+                                  className={`font-bold text-sm transition-all ${
+                                    formData.speakers.length >= 4
+                                      ? "text-gray-500 cursor-not-allowed"
+                                      : "text-[#1C5945] hover:opacity-80"
+                                  }`}
+                                >
+                                  {formData.speakers.length >= 4
+                                    ? "Only 4 speakers allowed"
+                                    : "+ Add Speaker"}
+                                </button>
+                              </div>
                             )}
                           </div>
                         </div>
@@ -642,24 +652,18 @@ const HostEventPage = () => {
                 </div>
               )}
 
-              <div className="mt-14 pt-8 border-t border-gray-100 flex justify-between items-center">
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mt-12 pt-8 border-t border-gray-100">
                 <button
-                  onClick={() => {
-                    if (step === 1) {
-                      router.push("/triibetalk");
-                    } else {
-                      prevStep();
-                    }
-                  }}
-                  className="text-[#30364166] font-bold text-sm flex items-center gap-2 hover:text-black transition-all cursor-pointer"
+                  onClick={prevStep}
+                  className="flex items-center justify-center gap-2 px-6 py-4 text-gray-500 font-bold hover:text-black transition-all order-2 md:order-1"
                 >
-                  <ArrowLeft size={18} /> {step === 1 ? "Cancel" : "Back"}
+                  <ArrowLeft size={18} /> Back
                 </button>
 
                 <button
                   onClick={step === 4 ? () => alert("Submitting...") : nextStep}
                   disabled={!isStepValid()}
-                  className={`flex items-center gap-3 px-10 py-4 rounded-2xl font-bold transition-all duration-300 ${
+                  className={`flex items-center justify-center gap-3 px-10 py-4 rounded-2xl font-bold transition-all duration-300 order-1 md:order-2 ${
                     isStepValid()
                       ? "bg-[#1C5945] text-white cursor-pointer"
                       : "bg-[#E5E7EB] text-[#30364166] cursor-not-allowed"
@@ -667,7 +671,7 @@ const HostEventPage = () => {
                 >
                   {step === 4 ? (
                     <>
-                      <Send size={18} /> Submit Request
+                      <Send size={18} /> Submit
                     </>
                   ) : (
                     <>
