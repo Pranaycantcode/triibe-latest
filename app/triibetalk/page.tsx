@@ -40,18 +40,27 @@ const EventsPage = () => {
                 priority
                 className="w-full max-w-[400px] md:max-w-[500px] h-auto -ml-3 md:-ml-5 lg:-ml-6 object-contain object-left"
               />
-              <p className="text-[#495565] text-lg mb-8 leading-relaxed mt-4">
+              <p className="text-[#495565] text-lg mb-8 leading-relaxed mt-4 font-bold">
                 Pairing established and next-gen changemakers in dialogue to
                 demonstrate that age doesn’t determine the quality of one’s
                 voice
               </p>
-              <div className="flex">
-                <a
-                  href="/triibetalk/host"
-                  className="px-8 py-3 bg-[#1C5945] text-white rounded-lg font-medium"
-                >
-                  Host a TRIIBE Talk
-                </a>
+              <div className="flex w-full items-center justify-center gap-4">
+
+              <a
+              href="https://drive.google.com/file/d/1rALrh5bjpWnbKq2AvxeudYOpPG7kFsZ-/view?usp=sharing"
+              className="px-8 py-3 bg-white text-black border border-black rounded hover:bg-gray-50 transition-colors font-medium"
+              >
+                TRIIBE Talk Guide
+              </a>
+
+              <a
+              href="/triibetalk/host"
+              className="px-8 py-3 bg-[#1C5945] text-white rounded-lg font-medium hover:bg-[#003d24] transition-colors"
+              >
+                Host a TRIIBE Talk
+              </a>
+
               </div>
             </div>
             <div className="grid grid-cols-2 gap-2">

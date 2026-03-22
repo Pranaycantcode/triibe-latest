@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import ApplicationProcess from "@/components/applicationProcess";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import CTASection from "@/components/cta";
@@ -41,7 +42,7 @@ const testimonials = [
       "I am immensely grateful for the TRIIBE community that has inspired me to continue SEED’s mission in bridging the global climate literacy gap. My TRIIBE mentors and peers are the leaders our world needs.",
     name: "Maya Gowda",
     year: "TRIIBE Fellow Spring 2025",
-    organization: "Founder, (SEED) est. 2019",
+    organization: "Founder, SEED est. 2019",
   },
 ];
 
@@ -166,6 +167,7 @@ const ProgramPage = () => {
       <Header />
 
       {/* Hero Section */}
+      {/*
       <section className="pt-32 pb-20 px-4 md:px-25 lg:px-50 bg-white">
         <div className="max-w-260 mx-auto">
           <div className="flex flex-col gap-8">
@@ -191,38 +193,37 @@ const ProgramPage = () => {
               </div>
 
               <p className=" font-normal text-[#495565] text-xl leading-8 max-w-200">
-                TRIIBE provides funding, mentorship, and community for college
-                students taking root today to advance tomorrow
+                TRIIBE provides funding, mentorship, and community for college students building organizations that create social impact.
               </p>
             </div>
 
-            <div className="flex items-center gap-4 flex-col md:flex-row ">
+            <div className="flex flex-col gap-4 w-full">
               <button
-                zeffy-form-link="https://www.zeffy.com/embed/donation-form/invest-in-the-future-3?modal=true"
-                className="px-6 py-3 bg-white text-black border border-black rounded hover:bg-gray-50 transition-colors  font-semibold text-base w-full md:w-auto text-center cursor-pointer"
-              >
-                Donate
+              className="w-full md:w-auto px-6 py-3 bg-[#1C5945] hover:bg-[#003d24] text-white rounded border border-[#1C5945] transition-colors text-center font-semibold text-base"
+            >
+             Apply
               </button>
 
               <a
-                href="/apply"
-                className="w-full md:w-auto px-6 py-3 bg-[#002c19] text-white rounded hover:bg-[#003d24] transition-colors text-center font-semibold text-base"
+              zeffy-form-link="https://www.zeffy.com/embed/donation-form/invest-in-the-future-3?modal=true"
+              className="px-6 py-3 bg-white text-black border border-black rounded hover:bg-gray-50 transition-colors font-semibold text-base w-full md:w-auto text-center cursor-pointer"
               >
-                Apply
-              </a>
+             Donate
+             </a>
             </div>
           </div>
         </div>
       </section>
+      */ }
 
       {/* Problem Visual/Infographic */}
 
-      <section className="  px-6 bg-white md:px-25 lg:px-[200px]">
-        <div className="max-w-260 mx-auto">
-          <div className="max-w-5xl mx-auto text-center">
-            <h1 className="text-xl md:text-2xl font-bold text-gray-900 leading-tight">
-              Nonprofit founders are cut off from funding when entering College
-            </h1>
+        <section className="pt-20 px-6 bg-white md:px-25 lg:px-50">        
+          <div className="max-w-260 mx-auto">
+          <div className="max-w-5xl mx-auto">
+          <p className="text-base md:text-lg font-medium text-gray-600 leading-relaxed text-left">
+           Nonprofit founders are cut off from funding when entering college
+          </p>
           </div>
 
           {/* <section className="py-8 px-6 bg-gray-50"> */}
@@ -240,6 +241,9 @@ const ProgramPage = () => {
           </div>
         </div>
       </section>
+
+      <ApplicationProcess />
+
 
       {/* Three Pillars of Support Section */}
       <section className="py-20 px-4 md:px-25 lg:px-50 bg-white border-t border-gray-200">

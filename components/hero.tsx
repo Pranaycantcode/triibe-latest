@@ -50,7 +50,7 @@ export default function Hero() {
 
             <a
               href="/apply"
-              className="px-6 py-3  font-bold bg-gray-300 text-black hover:bg-gray-100 font-['DM_Sans',Helvetica] font-normal text-sm rounded inline-flex items-center justify-center transition-colors gap-2"
+              className="px-6 py-3  font-bold bg-[#002c19] text-white rounded hover:bg-[#003d24] font-['DM_Sans',Helvetica] font-normal text-sm rounded inline-flex items-center justify-center transition-colors gap-2"
             >
               Apply to Fellowship
             </a>

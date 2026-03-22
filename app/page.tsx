@@ -21,7 +21,7 @@ export default function Home() {
       <Hero />
       {/* <MissionStatement /> */}
       <ProgramOverview />
-      <ApplicationProcess />
+      
       <FellowshipBenefits />
       <KeyStatistics />
       <Changemakers />

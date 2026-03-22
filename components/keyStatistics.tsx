@@ -163,7 +163,7 @@ export default function KeyStatistics() {
         </div> */}
 
         <div className="flex flex-col items-center gap-8 w-full">
-          <p className=" font-normal text-[#697282] text-xs text-center tracking-[0.60px] leading-4">
+          <p className="font-normal text-[#697282] text-xl text-center tracking-[0.60px] leading-5">
             SPONSORED BY
           </p>
 
@@ -182,7 +182,7 @@ export default function KeyStatistics() {
         </div>
 
         <div className="flex flex-col items-center gap-8 w-full">
-          <p className=" font-normal text-[#697282] text-xs text-center tracking-[0.60px] leading-4">
+          <p className=" font-normal text-[#697282] text-xl text-center tracking-[0.60px] leading-4">
             PARTNERED WITH
           </p>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-12 md:gap-8 place-items-center">
