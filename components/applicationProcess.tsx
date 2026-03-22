@@ -62,11 +62,12 @@ export default function ApplicationProcess() {
                 ))}
               </div>
             <div className="flex flex-col gap-4 w-full">
-              <button
+              <a
+              href="/apply"
               className="w-full md:w-auto px-6 py-3 bg-[#1C5945] hover:bg-[#003d24] text-white rounded border border-[#1C5945] transition-colors text-center font-semibold text-base"
             >
              Begin Application
-              </button>
+              </a>
 
               <a
               zeffy-form-link="https://www.zeffy.com/embed/donation-form/invest-in-the-future-3?modal=true"

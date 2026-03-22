@@ -42,7 +42,7 @@ const testimonials = [
       "I am immensely grateful for the TRIIBE community that has inspired me to continue SEED’s mission in bridging the global climate literacy gap. My TRIIBE mentors and peers are the leaders our world needs.",
     name: "Maya Gowda",
     year: "TRIIBE Fellow Spring 2025",
-    organization: "Founder, (SEED) est. 2019",
+    organization: "Founder, SEED est. 2019",
   },
 ];
 

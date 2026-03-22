@@ -48,7 +48,7 @@ const EventsPage = () => {
               <div className="flex w-full items-center justify-center gap-4">
 
               <a
-              href="/triibetalk/guide"
+              href="https://drive.google.com/file/d/1rALrh5bjpWnbKq2AvxeudYOpPG7kFsZ-/view?usp=sharing"
               className="px-8 py-3 bg-white text-black border border-black rounded hover:bg-gray-50 transition-colors font-medium"
               >
                 TRIIBE Talk Guide
