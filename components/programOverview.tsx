@@ -54,7 +54,7 @@ export default function ProgramOverview() {
 
   <div className="max-w-xl text-center md:text-left">
     <p className="text-gray-700 leading-relaxed text-lg">
-      Get yourself registered onto the United World Leaders Platform
+      Independent member of the United World Leaders
     </p>
   </div>
 
